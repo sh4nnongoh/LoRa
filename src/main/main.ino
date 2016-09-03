@@ -63,16 +63,18 @@ bool Read(int length=8){
     mySerial.readBytesUntil(char(35),buffer,size); // 35 == #
     for(int i=0;i<size/2;i++){
       buffer[i] = buffer[(i*2)+1];
-      Serial.print(buffer[i],HEX);
+      //Serial.print(buffer[i],HEX);
     }
     Serial.println();
     buffer[length] = '\0';
     String msg = (char*)buffer;
     Serial.println(msg);
+
+    return true;
   }
   // Must be 40ms
   delay(40);
-  return true;
+  return false;
 }
 
 bool Write(byte msg[], int msgSize){
@@ -144,7 +146,7 @@ int Voltage(){
   //Serial.println("Printing Voltage,");
   byte msg[3] = {0xC5, 0xC5, 0xC5};
   Write(msg,3);
-  Read(char(0xC5),4);
+  Read();
   return 0;
 }
 
@@ -152,7 +154,7 @@ byte Configuration(){
   //Serial.println("Printing Configuration,");
   byte msg[3] = {0xC1, 0xC1, 0xC1};
   Write(msg,3);
-  Read(char(0xC0),7);
+  Read();
   return 0;
 }
 
@@ -166,11 +168,28 @@ void loop() {
   }
   //Read();
   
-  byte msgArray[] = {};
-  String msgString = "abcdef";
-  msgString.getBytes(msgArray,msgString.length()+1);
-  Write(msgArray,msgString.length());
   
+  if(flag){
+    byte msgArray[] = {};
+    String msgString = "abcdefghijk";
+    msgString.getBytes(msgArray,msgString.length()+1);
+    Write(msgArray,msgString.length());
+  }
+  if(Read()){
+    byte msgArray[] = {};
+    String msgString = "abcdefghijk";
+    msgString.getBytes(msgArray,msgString.length()+1);
+    Write(msgArray,msgString.length());
+  }
+  
+  /*
+  if(Read()){
+    byte msgArray[] = {};
+    String msgString = "ack";
+    msgString.getBytes(msgArray,msgString.length()+1);
+    Write(msgArray,msgString.length());
+  }
+  */
   delay(1000);
   flag = false;
 }
