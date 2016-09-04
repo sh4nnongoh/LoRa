@@ -120,8 +120,6 @@ bool Write(unsigned char msg[], int msgSize) {
 	delay(5);
 	//ensure all is sent over
 	while (!digitalRead(AUX));
-  
-  //mySerial.flush();
 	Serial.println("Sent...");
 
 	digitalWrite(LED_0, LOW);
@@ -137,7 +135,7 @@ int count = 0;
 //
 // Set the module mode here; Transmitter / Receiver
 //
-int init_mode = 0;
+int init_mode = 1;
 void loop() {
 
 	unsigned char msgArray[256];
