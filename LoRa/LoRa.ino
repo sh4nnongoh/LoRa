@@ -135,7 +135,7 @@ int count = 0;
 //
 // Set the module mode here; Transmitter / Receiver
 //
-int init_mode = 1;
+int init_mode = 0;
 void loop() {
 
 	unsigned char msgArray[256];
@@ -172,6 +172,7 @@ void loop() {
     }
     else{
       count++;
+      // If no "ack" received, resend packet.
       if(count==5){
         count = 0;
         flag = true;
