@@ -9,7 +9,7 @@
 
 #define DEBUG 1
 
-LoRa433::LoRa433() {
+Lora::Lora() {
   _m0 = 12;
   _m1 = 11;
   _tx = 9;
@@ -19,7 +19,7 @@ LoRa433::LoRa433() {
   _baudRate = 9600;
 }
 
-LoRa433::LoRa433(unsigned char m0, unsigned char m1, unsigned char tx, unsigned char rx, unsigned char aux, unsigned char debugLED, long baudRate) {
+Lora::Lora(unsigned char m0, unsigned char m1, unsigned char tx, unsigned char rx, unsigned char aux, unsigned char debugLED, long baudRate) {
   _m0 = m0;
   _m1 = m1;
   _tx = tx;
@@ -29,7 +29,7 @@ LoRa433::LoRa433(unsigned char m0, unsigned char m1, unsigned char tx, unsigned 
   _baudRate = baudRate;
 }
 
-void LoRa433::initialize() {
+void Lora::initialize() {
 
   pinMode(_debugLED, OUTPUT);
 
@@ -50,10 +50,10 @@ void LoRa433::initialize() {
   delay(1000);
 }
 
-LoRa433::~LoRa433() {
+Lora::~Lora() {
 }
 
-String LoRa433::read() {
+String Lora::read() {
 
   uint8_t read_count = 0;
   uint8_t temp = 0;
@@ -118,7 +118,7 @@ String LoRa433::read() {
 
 
 
-bool LoRa433::write(uint8_t msg[], int msgLen) {
+bool Lora::write(uint8_t msg[], int msgLen) {
 
   if (msgLen > 253) return false;
 
